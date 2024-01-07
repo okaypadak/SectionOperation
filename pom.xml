@@ -12,7 +12,7 @@
 
 	<groupId>dev.padak</groupId>
 	<artifactId>section-operation</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.9</version>
 
 	<name>section-operation</name>
 	<description>Section Operation Library</description>
@@ -26,6 +26,30 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.9.7</version> <!-- Sürümü projenize uygun olarak güncelleyebilirsiniz -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.1.2</version> <!-- Spring Boot sürümüne göre değiştirilebilir -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.7</version> <!-- Sürümü projenize uygun olarak güncelleyebilirsiniz -->
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -49,7 +73,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>dev.padak.backend.SectionAnnotationOperation</mainClass>
+							<mainClass>dev.padak.backend.SaveAllChunkAspect</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
