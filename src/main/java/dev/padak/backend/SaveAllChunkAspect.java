@@ -33,9 +33,6 @@ public class SaveAllChunkAspect {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    //@Pointcut("@within(@org.springframework.stereotype.Repository @dev.padak.backend.Section *) && execution(* saveAll(..)) && args(entities)")
-    //@Pointcut("execution(* org.springframework.stereotype.Repository.*.*(..)) && @within(dev.padak.backend.Section) && execution(* saveAll(..)) && args(entities)")
-
     @Pointcut("execution(* saveAll(..)) && args(entities)")
     public void saveAllMethod(List<?> entities) {}
 
@@ -79,43 +76,13 @@ public class SaveAllChunkAspect {
         } catch (Exception e) {
             transactionManager.rollback(transactionStatus);
             throw e;
-        } finally {
-
         }
 
-
-
         if (!sectionFound) {
-            // If Section annotation is not found, proceed with the original joinPoint
             joinPoint.proceed();
         }
 
     }
 
-    private boolean checkTransactionalAnnotation(JoinPoint joinPoint) {
 
-        Class<?> targetClass = joinPoint.getTarget().getClass();
-
-        // Repository sınıfı üzerinde @Transactional anotasyonunu kontrol et
-
-            Repository repositoryAnnotation = targetClass.getAnnotation(Repository.class);
-            // @Transactional anotasyonunu kontrol et
-            if (repositoryAnnotation != null && targetClass.isAnnotationPresent(Section.class)) {
-                System.out.println("Repository has @Transactional annotation");
-                return true;
-            } else {
-                System.out.println("Repository does not have @Transactional annotation");
-                return false;
-            }
-    }
-    private JpaRepository<?, ?> findRepository(Object target) {
-        // Assuming there is only one repository of type CrudRepository
-        // You may need to adjust this based on your project's specific requirements
-        return applicationContext.getBeansOfType(JpaRepository.class)
-                .values()
-                .stream()
-                .filter(repo -> repo.getClass().isInstance(target))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Repository not found."));
-    }
 }
